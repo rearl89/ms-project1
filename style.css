@@ -23,10 +23,14 @@ h3 {
     padding-bottom: 10px;
 }
 
+.score {
+    font-size: 4rem;
+}
+
 canvas {
     width: 960px;
     height: 540px;
     background-color: white;
     display: block;
     margin: auto;
-} 
+}
