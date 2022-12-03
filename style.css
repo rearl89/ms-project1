@@ -30,7 +30,11 @@ h3 {
 canvas {
     width: 960px;
     height: 540px;
+    border: 5px solid grey;
+    background-image: url("imgs/bg_img.jpeg");
+    background-repeat: no-repeat;
+    background-size: 960px 540px;
     background-color: white;
     display: block;
-    margin: auto;
+    margin: 0 auto;
 }
