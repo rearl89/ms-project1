@@ -1,5 +1,6 @@
 const cvs = document.getElementById("playArea");
 const con = cvs.getContext("2d");
+
 //ball size
 const ballRadius = 3;
 //paddle size and position
@@ -35,8 +36,8 @@ function releaseKey(e) {
 let x = cvs.width / 2;
 let y = cvs.height - 30;
 
-//speed of ball
-let dx = 2;
+//movement and speed of ball
+let dx = 2 * (Math.random() * 2 -1);
 let dy = -2;
 
 //draw ball
@@ -94,9 +95,13 @@ function draw() {
     drawBall();
     if(x + dx > cvs.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
-    }else if(y +dy > cvs.height -ballRadius || y + dy < ballRadius) {
+    }else if(y + dy < ballRadius) {
         dy = -dy;
+    }else if(y + dy > cvs.height - ballRadius) {
+        document.location.reload();
+        clearInterval(interval);
     }
+
     drawPaddle();
     if(rightPressed) {
         paddleX = Math.min(paddleX + 4, cvs.width - paddleWidth);
@@ -107,4 +112,4 @@ function draw() {
     x += dx;
     y += dy;
 }
-setInterval(draw, 10);
+const interval = setInterval(draw, 10);
