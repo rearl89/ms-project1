@@ -14,8 +14,8 @@ const brickWidth = 25;
 //controls
 let rightPressed = false;
 let leftPressed = false;
-document.addEventListener("keydown", pressKey, false);
-document.addEventListener("keyup", releaseKey, false);
+document.addEventListener('keydown', pressKey, false);
+document.addEventListener('keyup', releaseKey, false);
 
 function pressKey(e) {
     if(e.key === 'Right' || e.key === 'ArrowRight') {
@@ -44,7 +44,7 @@ let dy = -2;
 function drawBall() {
     con.beginPath();
     con.arc(x, y, ballRadius, 0, Math.PI * 2);
-    con.fillStyle = "aqua";
+    con.fillStyle = 'aqua';
     con.fill();
     con.closePath();
 }
@@ -53,7 +53,7 @@ function drawBall() {
 function drawPaddle(){
     con.beginPath();
     con.rect(paddleX, cvs.height - paddleStartHeight, paddleWidth, paddleHeight);
-    con.fillStyle = "#CFD0D2";
+    con.fillStyle = '#CFD0D2';
     con.fill();
     con.closePath();
 }
@@ -84,22 +84,26 @@ function drawBricks() {
     con.rect(189, 27, brickWidth, brickHeight);
     con.rect(224, 27, brickWidth, brickHeight);
     con.rect(259, 27, brickWidth, brickHeight);
-    con.fillStyle = "red";
+    con.fillStyle = 'red';
     con.fill();
     con.closePath();
 }
 
 //the draw call
 function draw() {
-    con.clearRect(0, 0, cvs.width, cvs.height);
+    con.clearRect(0, 0, cvs.width, cvs.height); //clears ball trail
     drawBall();
     if(x + dx > cvs.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
     }else if(y + dy < ballRadius) {
         dy = -dy;
-    }else if(y + dy > cvs.height - ballRadius) {
+    }else if(y + dy > cvs.height - ballRadius - paddleHeight) {
+        if(x > paddleX && x < paddleX + paddleWidth) {
+            dy = -dy;
+        }else{
         document.location.reload();
         clearInterval(interval);
+        }
     }
 
     drawPaddle();
