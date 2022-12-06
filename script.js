@@ -71,6 +71,7 @@ const redBrick = {
     fillColor: 'red'
 }
 
+
 let bricks = [redBrick];
 
 //the draw call
