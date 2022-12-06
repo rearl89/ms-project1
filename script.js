@@ -2,8 +2,14 @@
 const cvs = document.getElementById("playArea");
 const con = cvs.getContext("2d");
 
-//ball size
+//ball size and position
 const ballRadius = 3;
+let x = cvs.width / 2;
+let y = cvs.height - 30;
+
+//movement and speed of ball
+let dx = 2 * (Math.random() * 2 -1);
+let dy = -2;
 
 //paddle size and position
 const paddleHeight = 5;
@@ -36,14 +42,6 @@ function releaseKey(e) {
     }
 }
 
-//ball start point
-let x = cvs.width / 2;
-let y = cvs.height - 30;
-
-//movement and speed of ball
-let dx = 2 * (Math.random() * 2 -1);
-let dy = -2;
-
 //draw ball
 function drawBall() {
     con.beginPath();
@@ -62,160 +60,18 @@ function drawPaddle(){
     con.closePath();
 }
 
-
-
 //draw bricks
-function drawBricks() {
-    con.beginPath();
-    con.rect(14, 3, brickWidth, brickHeight);
-    con.fillStyle = 'red';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(49, 3, brickWidth, brickHeight);
-    con.fillStyle = 'red';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(84, 3, brickWidth, brickHeight);
-    con.fillStyle = 'red';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(119, 3, brickWidth, brickHeight);
-    con.fillStyle = 'red';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(154, 3, brickWidth, brickHeight);
-    con.fillStyle = 'red';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(189, 3, brickWidth, brickHeight);
-    con.fillStyle = 'red';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(224, 3, brickWidth, brickHeight);
-    con.fillStyle = 'red';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(259, 3, brickWidth, brickHeight);
-    con.fillStyle = 'red';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(32, 15, brickWidth, brickHeight);
-    con.fillStyle = 'yellow';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(67, 15, brickWidth, brickHeight);
-    con.fillStyle = 'yellow';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(102, 15, brickWidth, brickHeight);
-    con.fillStyle = 'yellow';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(137, 15, brickWidth, brickHeight);
-    con.fillStyle = 'yellow';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(172, 15, brickWidth, brickHeight);
-    con.fillStyle = 'yellow';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(207, 15, brickWidth, brickHeight);
-    con.fillStyle = 'yellow';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(242, 15, brickWidth, brickHeight);
-    con.fillStyle = 'yellow';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(14, 27, brickWidth, brickHeight);
-    con.fillStyle = '#FF00FF';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(49, 27, brickWidth, brickHeight);
-    con.fillStyle = '#FF00FF';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(84, 27, brickWidth, brickHeight);
-    con.fillStyle = '#FF00FF';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(119, 27, brickWidth, brickHeight);
-    con.fillStyle = '#FF00FF';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(154, 27, brickWidth, brickHeight);
-    con.fillStyle = '#FF00FF';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(189, 27, brickWidth, brickHeight);
-    con.fillStyle = '#FF00FF';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(224, 27, brickWidth, brickHeight);
-    con.fillStyle = '#FF00FF';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(259, 27, brickWidth, brickHeight);
-    con.fillStyle = '#FF00FF';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(32, 39, brickWidth, brickHeight);
-    con.fillStyle = '#16FC10';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(67, 39, brickWidth, brickHeight);
-    con.fillStyle = '#16FC10';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(102, 39, brickWidth, brickHeight);
-    con.fillStyle = '#16FC10';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(137, 39, brickWidth, brickHeight);
-    con.fillStyle = '#16FC10';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(172, 39, brickWidth, brickHeight);
-    con.fillStyle = '#16FC10';
-    con.fill();
-    con.closePath();
-    con.beginPath();
-    con.rect(207, 39, brickWidth, brickHeight);
-    con.fillStyle = '#16FC10';
-    con.fill();
-    con.closePath();
-    con.rect(242, 39, brickWidth, brickHeight);
-    con.fillStyle = '#16FC10';
-    con.fill();
-    con.closePath();
+const redBrick = {
+    row: 1,
+    column: 8,
+    width: brickWidth,
+    height: brickHeight,
+    offSetLeft: 20,
+    offSetTop: 20,
+    fillColor: 'red'
 }
+
+let bricks = [redBrick];
 
 //the draw call
 function draw() {
@@ -242,7 +98,7 @@ function draw() {
     }else if (leftPressed) {
         paddleXPosition = Math.max(paddleXPosition - 4, 0);
     }
-   drawBricks();
+   
 
 }
 const interval = setInterval(draw, 10);
