@@ -18,12 +18,12 @@ const paddleStartHeight = 8;
 let paddleXPosition = (cvs.width - paddleWidth) / 2;
 
 //bricks size
-const brickHeight = 8;
+const brickHeight = 10;
 const brickWidth = 25;
 const brickGap = 2;
 const brickColor = 'red';
 let brickCols = 12;
-let brickRows = 8;
+let brickRows = 6;
 let liveBricks = 0;
 let bricks = Array(brickCols * brickRows);
 for(let i = 0; i < brickCols * brickRows; i++){
