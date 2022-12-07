@@ -20,6 +20,16 @@ let paddleXPosition = (cvs.width - paddleWidth) / 2;
 //bricks size
 const brickHeight = 8;
 const brickWidth = 25;
+const brickGap = 2;
+const brickColor = 'red';
+let brickCols = 12;
+let brickRows = 8;
+let liveBricks = 0;
+let bricks = Array(brickCols * brickRows);
+for(let i = 0; i < brickCols * brickRows; i++){
+    bricks[i] = true;
+    liveBricks++;
+}
 
 //controls
 let rightPressed = false;
@@ -62,289 +72,35 @@ function drawPaddle(){
 
 //draw bricks
 function drawBricks(){
-    drawBrick1();
-    drawBrick2();
-    drawBrick3();
-    drawBrick4();
-    drawBrick5();
-    drawBrick6();
-    drawBrick7();
-    drawBrick8();
-    drawBrick9();
-
-    drawBrick10();
-    drawBrick11();
-    drawBrick12();
-    drawBrick13();
-    drawBrick14();
-    drawBrick15();
-
-    drawBrick16();
-    drawBrick17();
-    drawBrick18();
-    drawBrick19();
-    drawBrick20();
-    drawBrick21();
-    drawBrick22();
-    drawBrick23();
-
-    drawBrick24();
-    drawBrick25();
-    drawBrick26();
-    drawBrick27();
-    drawBrick28();
-    drawBrick29();
-    drawBrick30();
+    for(let row = 0; row < brickRows; row++){
+        for(let col = 0; col < brickCols; col++){
+            let index = (col + brickCols * row);
+            if(bricks[index] == true){
+                drawRect(
+                    brickWidth*col+brickGap,
+                    brickHeight*row+brickGap,
+                    brickWidth-brickGap*2,
+                    brickHeight-brickGap*2,
+                    brickColor
+                );
+            }
+        }
+    }
 }
 
-function drawBrick1(){
-    con.beginPath();
-    con.rect(14, 3, brickWidth, brickHeight);
-    con.fillStyle = 'red';
+function drawRect(x, y, width, height, color){
+    con.fillStyle = color;
+    con.fillRect(x, y, width, height);
     con.fill();
-    con.closePath();
-}
-
-function drawBrick2(){
-    con.beginPath();
-    con.rect(49, 3, brickWidth, brickHeight);
-    con.fillStyle = 'red';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick3(){
-    con.beginPath();
-    con.rect(84, 3, brickWidth, brickHeight);
-    con.fillStyle = 'red';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick4(){
-    con.beginPath();
-    con.rect(119, 3, brickWidth, brickHeight);
-    con.fillStyle = 'red';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick5(){
-    con.beginPath();
-    con.rect(154, 3, brickWidth, brickHeight);
-    con.fillStyle = 'red';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick6(){
-    con.beginPath();
-    con.rect(189, 3, brickWidth, brickHeight);
-    con.fillStyle = 'red';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick7(){
-    con.beginPath();
-    con.rect(224, 3, brickWidth, brickHeight);
-    con.fillStyle = 'red';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick8(){
-    con.beginPath();
-    con.rect(259, 3, brickWidth, brickHeight);
-    con.fillStyle = 'red';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick9(){
-    con.beginPath();
-    con.rect(32, 15, brickWidth, brickHeight);
-    con.fillStyle = 'yellow';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick10(){
-    con.beginPath();
-    con.rect(67, 15, brickWidth, brickHeight);
-    con.fillStyle = 'yellow';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick11(){
-    con.beginPath();
-    con.rect(102, 15, brickWidth, brickHeight);
-    con.fillStyle = 'yellow';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick12(){
-    con.beginPath();
-    con.rect(137, 15, brickWidth, brickHeight);
-    con.fillStyle = 'yellow';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick13(){
-    con.beginPath();
-    con.rect(172, 15, brickWidth, brickHeight);
-    con.fillStyle = 'yellow';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick14(){
-    con.beginPath();
-    con.rect(207, 15, brickWidth, brickHeight);
-    con.fillStyle = 'yellow';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick15(){
-    con.beginPath();
-    con.rect(242, 15, brickWidth, brickHeight);
-    con.fillStyle = 'yellow';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick16(){
-    con.beginPath();
-    con.rect(14, 27, brickWidth, brickHeight);
-    con.fillStyle = '#FF00FF';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick17(){
-    con.beginPath();
-    con.rect(49, 27, brickWidth, brickHeight);
-    con.fillStyle = '#FF00FF';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick18(){
-    con.beginPath();
-    con.rect(84, 27, brickWidth, brickHeight);
-    con.fillStyle = '#FF00FF';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick19(){
-    con.beginPath();
-    con.rect(119, 27, brickWidth, brickHeight);
-    con.fillStyle = '#FF00FF';
-    con.fill();
-    con.closePath();
-
-}
-
-function drawBrick20(){
-    con.beginPath();
-    con.rect(154, 27, brickWidth, brickHeight);
-    con.fillStyle = '#FF00FF';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick21(){
-    con.beginPath();
-    con.rect(189, 27, brickWidth, brickHeight);
-    con.fillStyle = '#FF00FF';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick22(){
-    con.beginPath();
-    con.rect(224, 27, brickWidth, brickHeight);
-    con.fillStyle = '#FF00FF';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick23(){
-    con.beginPath();
-    con.rect(259, 27, brickWidth, brickHeight);
-    con.fillStyle = '#FF00FF'
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick24(){
-    con.beginPath();
-    con.rect(32, 39, brickWidth, brickHeight);
-    con.fillStyle = '#16FC10';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick25(){
-    con.beginPath();
-    con.rect(67, 39, brickWidth, brickHeight);
-    con.fillStyle = '#16FC10';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick26(){
-    con.beginPath();
-    con.rect(102, 39, brickWidth, brickHeight);
-    con.fillStyle = '#16FC10';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick27(){
-    con.beginPath();
-    con.rect(137, 39, brickWidth, brickHeight);
-    con.fillStyle = '#16FC10';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick28(){
-    con.beginPath();
-    con.rect(172, 39, brickWidth, brickHeight);
-    con.fillStyle = '#16FC10';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick29(){
-    con.beginPath();
-    con.rect(207, 39, brickWidth, brickHeight);
-    con.fillStyle = '#16FC10';
-    con.fill();
-    con.closePath();
-}
-
-function drawBrick30(){
-    con.beginPath();
-    con.rect(242, 39, brickWidth, brickHeight);
-    con.fillStyle = '#16FC10';
-    con.fill();
-    con.closePath();
 }
 
 //the draw call
 function draw() {
     con.clearRect(0, 0, cvs.width, cvs.height); //clears ball trail
+    drawBricks();
     drawBall();
     x += dx;
     y += dy;
-    drawBricks();
     if(x + dx > cvs.width - ballRadius || x + dx < ballRadius) { //ball bounce off walls
         dx = -dx;
     }else if(y + dy < ballRadius) {
