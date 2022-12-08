@@ -18,17 +18,20 @@ const paddleStartHeight = 8;
 let paddleXPosition = (cvs.width - paddleWidth) / 2;
 
 //bricks size
-const brickHeight = 10;
+const brickHeight = 8;
 const brickWidth = 25;
-const brickGap = 2;
-const brickColor = 'red';
-let brickCols = 12;
-let brickRows = 6;
-let liveBricks = 0;
-let bricks = Array(brickCols * brickRows);
-for(let i = 0; i < brickCols * brickRows; i++){
-    bricks[i] = true;
-    liveBricks++;
+const brickCols = 10;
+const brickRows = 5;
+const brickPadding = 5;
+const brickOffsetTop = 2;
+const brickOffsetLeft = 2;
+
+const bricks = [];
+for(let c = 0; c < brickCols; c++) {
+    bricks[c] = [];
+    for(let r = 0; r < brickRows; r++) {
+        bricks[c][r] = {x: 0, y: 0, status: 1};
+    }
 }
 
 //controls
@@ -52,6 +55,21 @@ function releaseKey(e) {
     }
 }
 
+//collision with bricks
+function brickCollision() {
+    for(let c = 0; c < brickCols; c++) {
+        for(let r = 0; r < brickRows; r++){
+            const b = bricks[c][r];
+            if (b.status === 1){
+                if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
+                    dy = -dy;
+                    b.status = 0;
+                }
+            }
+        }
+    }
+}
+
 //draw ball
 function drawBall() {
     con.beginPath();
@@ -62,7 +80,7 @@ function drawBall() {
 }
 
 //draw paddle
-function drawPaddle(){
+function drawPaddle() {
     con.beginPath();
     con.rect(paddleXPosition, cvs.height - paddleStartHeight, paddleWidth, paddleHeight);
     con.fillStyle = '#CFD0D2';
@@ -71,27 +89,22 @@ function drawPaddle(){
 }
 
 //draw bricks
-function drawBricks(){
-    for(let row = 0; row < brickRows; row++){
-        for(let col = 0; col < brickCols; col++){
-            let index = (col + brickCols * row);
-            if(bricks[index] == true){
-                drawRect(
-                    brickWidth*col+brickGap,
-                    brickHeight*row+brickGap,
-                    brickWidth-brickGap*2,
-                    brickHeight-brickGap*2,
-                    brickColor
-                );
+function drawBricks() {
+    for(let c = 0; c < brickCols; c++) {
+        for(let r = 0; r < brickRows; r++) {
+            if(bricks[c][r].status === 1) {
+                const brickXPosition = c * (brickWidth + brickPadding) + brickOffsetLeft;
+                const brickYPosition = r * (brickHeight + brickPadding) + brickOffsetTop;
+                bricks[c][r].x = brickXPosition;
+                bricks[c][r].y = brickYPosition;
+                con.beginPath();
+                con.rect(brickXPosition, brickYPosition, brickWidth, brickHeight);
+                con.fillStyle = 'red';
+                con.fill();
+                con.closePath();
             }
         }
     }
-}
-
-function drawRect(x, y, width, height, color){
-    con.fillStyle = color;
-    con.fillRect(x, y, width, height);
-    con.fill();
 }
 
 //the draw call
@@ -99,8 +112,7 @@ function draw() {
     con.clearRect(0, 0, cvs.width, cvs.height); //clears ball trail
     drawBricks();
     drawBall();
-    x += dx;
-    y += dy;
+    brickCollision();
     if(x + dx > cvs.width - ballRadius || x + dx < ballRadius) { //ball bounce off walls
         dx = -dx;
     }else if(y + dy < ballRadius) {
@@ -113,14 +125,15 @@ function draw() {
         clearInterval(interval);
         }
     }
-
+    
     drawPaddle();
     if(rightPressed) {
         paddleXPosition = Math.min(paddleXPosition + 4, cvs.width - paddleWidth);
     }else if (leftPressed) {
         paddleXPosition = Math.max(paddleXPosition - 4, 0);
     }
-   
+    x += dx;
+    y += dy;
 
 }
 const interval = setInterval(draw, 10);
