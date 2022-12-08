@@ -2,13 +2,16 @@
 const cvs = document.getElementById("playArea");
 const con = cvs.getContext("2d");
 
+const scoreDisplay = document.querySelector('#score');
+let score = 0;
+
 //ball size and position
 const ballRadius = 3;
 let x = cvs.width / 2;
-let y = cvs.height - 30;
+let y = cvs.height - 20;
 
 //movement and speed of ball
-let dx = 2 * (Math.random() * 2 -1);
+let dx = 2 * (Math.random() * 2 - 1);
 let dy = -2;
 
 //paddle size and position
@@ -17,7 +20,7 @@ const paddleWidth = 45;
 const paddleStartHeight = 8;
 let paddleXPosition = (cvs.width - paddleWidth) / 2;
 
-//bricks size
+//bricks size and position
 const brickHeight = 8;
 const brickWidth = 25;
 const brickCols = 10;
@@ -25,7 +28,6 @@ const brickRows = 5;
 const brickPadding = 5;
 const brickOffsetTop = 2;
 const brickOffsetLeft = 2;
-
 const bricks = [];
 for(let c = 0; c < brickCols; c++) {
     bricks[c] = [];
@@ -63,6 +65,8 @@ function brickCollision() {
             if (b.status === 1){
                 if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
                     dy = -dy;
+                    score++;
+                    scoreDisplay.innerHTML = score;
                     b.status = 0;
                 }
             }
@@ -121,7 +125,7 @@ function draw() {
         if(x > paddleXPosition && x < paddleXPosition + paddleWidth) {
             dy = -dy;
         }else{
-        //document.location.reload(); //reset game if ball misses paddle
+        document.location.reload(); //reset game if ball misses paddle
         clearInterval(interval);
         }
     }

@@ -26,8 +26,8 @@ h3 {
     padding-bottom: 10px;
 }
 
-.score {
-    font-size: 4rem;
+#score {
+    font-size: 3rem;
 }
 
 canvas {
