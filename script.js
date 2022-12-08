@@ -10,8 +10,22 @@ const ballRadius = 3;
 let x = cvs.width / 2;
 let y = cvs.height - 20;
 
+function randomNum(){
+    let num = Math.random();
+    if(num < 0.25) {
+        return -2;
+    }else if(num > 0.24 && num < 0.5) {
+        return -1;
+    }else if(num > 0.49 && num < 0.75) {
+        return 1;
+    }else {
+        return 2;
+    }
+}
+
+
 //movement and speed of ball
-let dx = 2 * (Math.random() * 2 - 1);
+let dx = randomNum();
 let dy = -2;
 
 //paddle size and position
@@ -27,7 +41,7 @@ const brickCols = 10;
 const brickRows = 5;
 const brickPadding = 5;
 const brickOffsetTop = 2;
-const brickOffsetLeft = 2;
+const brickOffsetLeft = 2.5;
 const bricks = [];
 for(let c = 0; c < brickCols; c++) {
     bricks[c] = [];
