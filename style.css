@@ -8,6 +8,7 @@
 body {
     background-color: black;
 }
+
 h1 {
     font-size: 72px;
     background: -webkit-linear-gradient(red, white);
@@ -17,17 +18,6 @@ h1 {
     -webkit-text-stroke-color: blue;
     text-align: center;
     margin-top: 5vh;
-}
-
-h3 {
-    color: white;
-    font-family: 'zen dots';
-    text-align: center;
-    padding-bottom: 10px;
-}
-
-#score {
-    font-size: 3rem;
 }
 
 canvas {
@@ -42,3 +32,29 @@ canvas {
     margin: auto;
     margin-bottom: 15rem;
 }
+
+h3 {
+    color: white;
+    font-family: 'zen dots';
+}
+
+.displayInfo {
+    display: flex;
+    position: relative;
+    justify-content: center;
+}
+
+.scoreHead {
+    display: flex;
+    padding-left: 500px;
+}
+
+#lives {
+    padding-left: 10px;
+}
+
+#score {
+    padding-left: 10px;
+}
+
+

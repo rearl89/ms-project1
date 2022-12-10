@@ -2,6 +2,9 @@
 const cvs = document.getElementById("playArea");
 const con = cvs.getContext("2d");
 
+const livesDisplay = document.querySelector('#lives');
+let lives = 3;
+
 const scoreDisplay = document.querySelector('#score');
 let score = 0;
 
@@ -10,7 +13,8 @@ const ballRadius = 3;
 let x = cvs.width / 2;
 let y = cvs.height - 20;
 
-function randomNum(){
+//randomly chooses the direction of ball
+function randomNum() {
     let num = Math.random();
     if(num < 0.25) {
         return -2;
@@ -18,11 +22,10 @@ function randomNum(){
         return -1;
     }else if(num > 0.49 && num < 0.75) {
         return 1;
-    }else {
+    }else{
         return 2;
     }
 }
-
 
 //movement and speed of ball
 let dx = randomNum();
@@ -71,6 +74,15 @@ function releaseKey(e) {
     }
 }
 
+//restart game
+document.addEventListener('keydown', pressSpace);
+
+function pressSpace(e) {
+    if(e.key == " " || e.code == "Space" || e.keyCode == 32) {
+        document.location.reload();
+    }
+}
+
 //collision with bricks
 function brickCollision() {
     for(let c = 0; c < brickCols; c++) {
@@ -82,8 +94,61 @@ function brickCollision() {
                     score++;
                     scoreDisplay.innerHTML = score;
                     b.status = 0;
+                    if(score == brickRows*brickCols) {
+                        endScreen();
+                        winText();
+                        restartText();
+                        clearInterval(interval);
+                        pressSpace(); 
+                    }
                 }
             }
+        }
+    }
+}
+
+//win and lose displays
+function endScreen() {
+    con.beginPath();
+    con.rect(0, 0, cvs.width, cvs.height);
+    con.fillStyle = 'black';
+    con.fill();
+    con.closePath;
+}
+
+function winText() {
+    con.font = '16px Zen Dots';
+    con.fillStyle = '#FFF';
+    con.fillText('You win! Score: '+score, (cvs.width / 2) - 80, (cvs.height / 2) + 8);
+}
+
+function loseText() {
+    con.font = '16px Zen Dots';
+    con.fillStyle = '#FFF';
+    con.fillText("You lose! Score: "+score, (cvs.width / 2) -90, (cvs.height / 2) + 8);
+}
+
+function restartText() {
+    con.font = '8px Zen Dots';
+    con.fillStyle = '#FFF';
+    con.fillText('Press spacebar to restart', (cvs.width / 2) - 65, (cvs.height / 2) + 20)
+}
+
+//collision with walls and paddle
+function collision() {
+    if(x + dx > cvs.width - ballRadius || x + dx < ballRadius) { //ball bounce off walls
+        dx = -dx;
+    }else if(y + dy < ballRadius) {
+        dy = -dy;
+    }else if(y + dy > (cvs.height - ballRadius) - paddleHeight) { //ball bounce off paddle
+        if(x > paddleXPosition && x < paddleXPosition + paddleWidth) {
+            dy = -dy;
+        }else{
+            endScreen();
+            loseText();
+            restartText();
+            clearInterval(interval);
+            pressSpace();
         }
     }
 }
@@ -131,19 +196,7 @@ function draw() {
     drawBricks();
     drawBall();
     brickCollision();
-    if(x + dx > cvs.width - ballRadius || x + dx < ballRadius) { //ball bounce off walls
-        dx = -dx;
-    }else if(y + dy < ballRadius) {
-        dy = -dy;
-    }else if(y + dy > (cvs.height - ballRadius) - paddleHeight) { //ball bounce off paddle
-        if(x > paddleXPosition && x < paddleXPosition + paddleWidth) {
-            dy = -dy;
-        }else{
-        document.location.reload(); //reset game if ball misses paddle
-        clearInterval(interval);
-        }
-    }
-    
+    collision();
     drawPaddle();
     if(rightPressed) {
         paddleXPosition = Math.min(paddleXPosition + 4, cvs.width - paddleWidth);
