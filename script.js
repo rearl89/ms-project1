@@ -40,8 +40,8 @@ let paddleXPosition = (cvs.width - paddleWidth) / 2;
 //bricks size and position
 const brickHeight = 8;
 const brickWidth = 25;
-const brickCols = 10;
-const brickRows = 5;
+const brickCols = 1;
+const brickRows = 1;
 const brickPadding = 5;
 const brickOffsetTop = 2;
 const brickOffsetLeft = 2.5;
@@ -78,9 +78,9 @@ function releaseKey(e) {
 document.addEventListener('keydown', pressSpace);
 
 function pressSpace(e) {
-    if(e.key == " " || e.code == "Space" || e.keyCode == 32) {
+    if(e.key == " ") {
         document.location.reload();
-    }
+    } 
 }
 
 //collision with bricks
