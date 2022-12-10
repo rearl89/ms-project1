@@ -119,13 +119,13 @@ function endScreen() {
 function winText() {
     con.font = '16px Zen Dots';
     con.fillStyle = '#FFF';
-    con.fillText('You win! Score: '+score, (cvs.width / 2) - 90, (cvs.height / 2) + 8);
+    con.fillText('You win! 😄 Score: '+score, (cvs.width / 2) - 105, (cvs.height / 2) + 8);
 }
 
 function loseText() {
     con.font = '16px Zen Dots';
     con.fillStyle = '#FFF';
-    con.fillText("You lose! Score: "+score, (cvs.width / 2) -95, (cvs.height / 2) + 8);
+    con.fillText("You lose! ☹️ Score: "+score, (cvs.width / 2) -110, (cvs.height / 2) + 8);
 }
 
 function restartText() {
