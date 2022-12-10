@@ -40,8 +40,8 @@ let paddleXPosition = (cvs.width - paddleWidth) / 2;
 //bricks size and position
 const brickHeight = 8;
 const brickWidth = 25;
-const brickCols = 1;
-const brickRows = 1;
+const brickCols = 10;
+const brickRows = 5;
 const brickPadding = 5;
 const brickOffsetTop = 2;
 const brickOffsetLeft = 2.5;
@@ -134,7 +134,7 @@ function restartText() {
     con.fillText('Press spacebar to restart', (cvs.width / 2) - 65, (cvs.height / 2) + 20)
 }
 
-//collision with walls and paddle
+//collision with walls and paddle and lose screen
 function collision() {
     if(x + dx > cvs.width - ballRadius || x + dx < ballRadius) { //ball bounce off walls
         dx = -dx;
@@ -144,11 +144,21 @@ function collision() {
         if(x > paddleXPosition && x < paddleXPosition + paddleWidth) {
             dy = -dy;
         }else{
+            lives--;
+            livesDisplay.innerHTML = lives;
+            if(!lives) {
             endScreen();
             loseText();
             restartText();
             clearInterval(interval);
             pressSpace();
+            }else{
+                x = cvs.width / 2;
+                y = cvs.height -20;
+                dx = randomNum();
+                dy = -2;
+                paddleXPosition = (cvs.width - paddleWidth) / 2;
+            }
         }
     }
 }
