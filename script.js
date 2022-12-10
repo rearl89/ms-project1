@@ -91,10 +91,10 @@ function brickCollision() {
             if (b.status === 1){
                 if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
                     dy = -dy;
-                    score++;
+                    score+= 10;
                     scoreDisplay.innerHTML = score;
                     b.status = 0;
-                    if(score == brickRows*brickCols) {
+                    if(score == (brickRows*brickCols) * 10) {
                         endScreen();
                         winText();
                         restartText();
@@ -119,13 +119,13 @@ function endScreen() {
 function winText() {
     con.font = '16px Zen Dots';
     con.fillStyle = '#FFF';
-    con.fillText('You win! Score: '+score, (cvs.width / 2) - 80, (cvs.height / 2) + 8);
+    con.fillText('You win! Score: '+score, (cvs.width / 2) - 90, (cvs.height / 2) + 8);
 }
 
 function loseText() {
     con.font = '16px Zen Dots';
     con.fillStyle = '#FFF';
-    con.fillText("You lose! Score: "+score, (cvs.width / 2) -90, (cvs.height / 2) + 8);
+    con.fillText("You lose! Score: "+score, (cvs.width / 2) -95, (cvs.height / 2) + 8);
 }
 
 function restartText() {
