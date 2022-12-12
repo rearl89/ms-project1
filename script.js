@@ -8,6 +8,12 @@ let lives = 3;
 const scoreDisplay = document.querySelector('#score');
 let score = 0;
 
+//sound
+const LOSE = new Audio();
+LOSE.src = "sounds/lose.wav";
+const WIN = new Audio();
+WIN.src = "sounds/win.wav";
+
 //ball size and position
 const ballRadius = 3;
 let x = cvs.width / 2;
@@ -98,6 +104,7 @@ function brickCollision() {
                         endScreen();
                         winText();
                         restartText();
+                        WIN.play();
                         clearInterval(interval);
                         pressSpace(); 
                     }
@@ -150,6 +157,7 @@ function collision() {
             endScreen();
             loseText();
             restartText();
+            LOSE.play();
             clearInterval(interval);
             pressSpace();
             }else{
@@ -215,6 +223,8 @@ function draw() {
     }
     x += dx;
     y += dy;
-
 }
 const interval = setInterval(draw, 10);
+
+
+
