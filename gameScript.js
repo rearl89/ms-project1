@@ -9,13 +9,12 @@ const scoreDisplay = document.querySelector('#score');
 let score = 0;
 
 //sound
-
 const LOSE = new Audio();
 LOSE.src = "sounds/lose.wav";
 const WIN = new Audio();
 WIN.src = "sounds/win.wav";
-const BALL_BOUNCE = new Audio();
-BALL_BOUNCE.src = "sounds/ball_bounce.wav"
+const BRICK_BREAK = new Audio();
+BRICK_BREAK.src = "sounds/brick_break.wav"
 
 //ball size and position
 const ballRadius = 3;
@@ -112,7 +111,7 @@ function brickCollision() {
             const b = bricks[c][r];
             if (b.status === 1){
                 if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
-                    BALL_BOUNCE.play();
+                    BRICK_BREAK.play();
                     dy = -dy;
                     score+= 10;
                     scoreDisplay.innerHTML = score;
