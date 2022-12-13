@@ -9,6 +9,7 @@ const scoreDisplay = document.querySelector('#score');
 let score = 0;
 
 //sound
+
 const LOSE = new Audio();
 LOSE.src = "sounds/lose.wav";
 const WIN = new Audio();

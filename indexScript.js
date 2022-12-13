@@ -1,6 +1,8 @@
 const cvs = document.getElementById("playArea");
 const con = cvs.getContext("2d");
 
+const INTRO = new Audio();
+INTRO.src = "sounds/intro.wav"
 
 const ballRadius = 3;
 let x = cvs.width / 2;
@@ -106,5 +108,6 @@ function draw() {
     collision();
     drawPaddle();
     paddleFollow();
+    INTRO.play();
 }
 const interval = setInterval(draw, 10);
