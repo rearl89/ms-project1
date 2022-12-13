@@ -79,6 +79,14 @@ function releaseKey(e) {
         leftPressed = false;
     }
 }
+//move paddle
+function movePaddle(){
+    if(rightPressed) {
+        paddleXPosition = Math.min(paddleXPosition + 4, cvs.width - paddleWidth);
+    }else if (leftPressed) {
+        paddleXPosition = Math.max(paddleXPosition - 4, 0);
+    }
+}
 
 //restart game
 document.addEventListener('keydown', pressSpace);
@@ -216,11 +224,7 @@ function draw() {
     brickCollision();
     collision();
     drawPaddle();
-    if(rightPressed) {
-        paddleXPosition = Math.min(paddleXPosition + 4, cvs.width - paddleWidth);
-    }else if (leftPressed) {
-        paddleXPosition = Math.max(paddleXPosition - 4, 0);
-    }
+    movePaddle();
     x += dx;
     y += dy;
 }

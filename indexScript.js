@@ -2,24 +2,19 @@
 const cvs = document.getElementById("playArea");
 const con = cvs.getContext("2d");
 
-//ball size and position
+
 const ballRadius = 3;
 let x = cvs.width / 2;
 let y = cvs.height - 20;
 
-
-
-//movement and speed of ball
 let dx = 1;
 let dy = -1;
 
-//paddle size and position
 const paddleHeight = 5;
 const paddleWidth = 45;
 const paddleStartHeight = 8;
 let paddleXPosition = (cvs.width - paddleWidth) / 2;
 
-//bricks size and position
 const brickHeight = 8;
 const brickWidth = 25;
 const brickCols = 10;
@@ -35,7 +30,6 @@ for(let c = 0; c < brickCols; c++) {
     }
 }
 
-//collision with bricks
 function brickCollision() {
     for(let c = 0; c < brickCols; c++) {
         for(let r = 0; r < brickRows; r++){
@@ -50,7 +44,6 @@ function brickCollision() {
     }
 }
 
-//collision with walls and paddle and lose screen
 function collision() {
     if(x + dx > cvs.width - ballRadius || x + dx < ballRadius) { //ball bounce off walls
         dx = -dx;
@@ -61,11 +54,11 @@ function collision() {
     }
 }
 
+//computer plays
 function paddleFollow() {
     paddleXPosition = x - 22;
 }
 
-//draw ball
 function drawBall() {
     con.beginPath();
     con.arc(x, y, ballRadius, 0, Math.PI * 2);
@@ -74,7 +67,6 @@ function drawBall() {
     con.closePath();
 }
 
-//draw paddle
 function drawPaddle() {
     con.beginPath();
     con.rect(paddleXPosition, cvs.height - paddleStartHeight, paddleWidth, paddleHeight);
@@ -83,7 +75,6 @@ function drawPaddle() {
     con.closePath();
 }
 
-//draw bricks
 function drawBricks() {
     for(let c = 0; c < brickCols; c++) {
         for(let r = 0; r < brickRows; r++) {
@@ -102,9 +93,8 @@ function drawBricks() {
     }
 }
 
-//the draw call
 function draw() {
-    con.clearRect(0, 0, cvs.width, cvs.height); //clears ball trail
+    con.clearRect(0, 0, cvs.width, cvs.height);
     drawBricks();
     drawBall();
     brickCollision();
@@ -113,6 +103,5 @@ function draw() {
     paddleFollow();
     x += dx;
     y += dy;
-
 }
 const interval = setInterval(draw, 10);
