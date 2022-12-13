@@ -13,6 +13,8 @@ const LOSE = new Audio();
 LOSE.src = "sounds/lose.wav";
 const WIN = new Audio();
 WIN.src = "sounds/win.wav";
+const BALL_BOUNCE = new Audio();
+BALL_BOUNCE.src = "sounds/ball_bounce.wav"
 
 //ball size and position
 const ballRadius = 3;
@@ -36,6 +38,11 @@ function randomNum() {
 //movement and speed of ball
 let dx = randomNum();
 let dy = -2;
+
+function moveBall() {
+    x += dx;
+    y += dy;
+}
 
 //paddle size and position
 const paddleHeight = 5;
@@ -66,16 +73,16 @@ document.addEventListener('keydown', pressKey, false);
 document.addEventListener('keyup', releaseKey, false);
 
 function pressKey(e) {
-    if(e.key === 'Right' || e.key === 'ArrowRight') {
+    if(e.key === 'ArrowRight') {
         rightPressed = true;
-    }else if(e.key === 'Left' || e.key === 'ArrowLeft') {
+    }else if(e.key === 'ArrowLeft') {
         leftPressed = true;
     }
 }
 function releaseKey(e) {
-    if(e.key === 'Right' || e.key === 'ArrowRight') {
+    if(e.key === 'ArrowRight') {
         rightPressed = false;
-    }else if(e.key === 'Left' || e.key === 'ArrowLeft') {
+    }else if(e.key === 'ArrowLeft') {
         leftPressed = false;
     }
 }
@@ -89,10 +96,10 @@ function movePaddle(){
 }
 
 //restart game
-document.addEventListener('keydown', pressSpace);
+document.addEventListener('keydown', reloadGame);
 
-function pressSpace(e) {
-    if(e.key == " ") {
+function reloadGame(e) {
+    if(e.key === " ") {
         document.location.reload();
     } 
 }
@@ -104,6 +111,7 @@ function brickCollision() {
             const b = bricks[c][r];
             if (b.status === 1){
                 if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
+                    BALL_BOUNCE.play();
                     dy = -dy;
                     score+= 10;
                     scoreDisplay.innerHTML = score;
@@ -114,7 +122,7 @@ function brickCollision() {
                         restartText();
                         WIN.play();
                         clearInterval(interval);
-                        pressSpace(); 
+                        reloadGame(); 
                     }
                 }
             }
@@ -167,7 +175,7 @@ function collision() {
             restartText();
             LOSE.play();
             clearInterval(interval);
-            pressSpace();
+            reloadGame();
             }else{
                 x = cvs.width / 2;
                 y = cvs.height -20;
@@ -221,12 +229,11 @@ function draw() {
     con.clearRect(0, 0, cvs.width, cvs.height); //clears ball trail
     drawBricks();
     drawBall();
+    moveBall();
     brickCollision();
     collision();
     drawPaddle();
     movePaddle();
-    x += dx;
-    y += dy;
 }
 const interval = setInterval(draw, 10);
 

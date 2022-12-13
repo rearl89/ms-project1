@@ -1,4 +1,3 @@
-//create canvas
 const cvs = document.getElementById("playArea");
 const con = cvs.getContext("2d");
 
@@ -9,6 +8,11 @@ let y = cvs.height - 20;
 
 let dx = 1;
 let dy = -1;
+
+function moveBall() {
+    x += dx;
+    y += dy;
+}
 
 const paddleHeight = 5;
 const paddleWidth = 45;
@@ -97,11 +101,10 @@ function draw() {
     con.clearRect(0, 0, cvs.width, cvs.height);
     drawBricks();
     drawBall();
+    moveBall()
     brickCollision();
     collision();
     drawPaddle();
     paddleFollow();
-    x += dx;
-    y += dy;
 }
 const interval = setInterval(draw, 10);
