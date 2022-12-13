@@ -8,7 +8,7 @@ The reason I picked this game to be my milestone project is because it was one o
 
 Objective
 --------------------
-How you play is there is a ball that will fall down to your paddle and you have to make sure to block the ball from hitting the ground, otherwise you lose. When you successfully block the ball, it will bounce off your paddle and bounce off walls and bricks. When bricks are hit, they break. The goal is to break all the bricks on screen.
+How you play is there is a ball that will fall down to your paddle and you have to make sure to block the ball from hitting the ground, otherwise you lose. You have 3 lives. When you successfully block the ball, it will bounce off your paddle and bounce off walls and bricks. When bricks are hit, they break. The goal is to break all the bricks on screen.
 
 Controls
 --------------------
