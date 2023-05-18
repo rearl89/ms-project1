@@ -1,5 +1,5 @@
 # ms-project1
-First milestone project (Web Browser Game)
+(Web Browser Game)
 Arkanoid Clone
 
 Inspiration
