@@ -15,3 +15,8 @@ Controls
 Left Arrow: Move Left
 Right Arrow: Move right
 Spacebar: Restart game
+
+Play
+--------------------
+https://rearl89.github.io/ms-project1/
+
